@@ -1,0 +1,8 @@
+.Body {
+  height: calc(100% - 60px);
+  min-height: calc(100vh - 60px);
+  padding-top: 60px;
+  padding-left: calc(250px + 2rem);
+  padding-right: 250px;
+  background-color: #778197;
+}
