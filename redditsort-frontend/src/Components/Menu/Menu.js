@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 import './Menu.css';
 
 class Menu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    }
+  }
   render() {
     return (
       <div className="Menu">
         <div className="header">
           <input className="header--search" type="text" placeholder="Search All Saved Content..."/>
         </div>
-        <input type="checkbox" className="openSidebarMenu" id="openSidebarMenu" defaultChecked />
+        <input onClick={this.props.toggleMenu} type="checkbox" className="openSidebarMenu" id="openSidebarMenu" defaultChecked />
         <label htmlFor="openSidebarMenu" className="sidebarIconToggle">
           <div className="spinner diagonal part-1"></div>
           <div className="spinner horizontal"></div>

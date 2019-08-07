@@ -1,0 +1,12 @@
+.Card {
+  border: 1px solid black;
+  font-size: 15px;
+  /* grid-column: auto / span 2; */
+  /* grid-row: auto / span 11; */
+}
+
+/* @media screen and (min-width: 1460px) {
+  .Card {
+    max-width: 450px;
+  }
+} */

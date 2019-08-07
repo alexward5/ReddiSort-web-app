@@ -9,7 +9,8 @@ class App extends Component {
     super(props);
     this.state = {
       savedPosts: '',
-      savedComments: ''
+      savedComments: '',
+      menuOpen: true
     }
   }
 
@@ -45,11 +46,15 @@ class App extends Component {
     this.setState({savedPosts: data.posts, savedComments: commentsCleaned});
   }
 
+  toggleMenu = () => {
+    this.setState(prevState => ({menuOpen: !prevState.menuOpen}));
+  }
+
   render() {
     return(
       <div className="App">
-        <Menu />
-        <Body posts={this.state.savedPosts} comments={this.state.savedComments} />
+        <Menu toggleMenu={this.toggleMenu} />
+        <Body posts={this.state.savedPosts} comments={this.state.savedComments} menuOpen={this.state.menuOpen} />
       </div>
     )
   }

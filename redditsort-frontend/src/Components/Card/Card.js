@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Card.css';
 
 class Card extends Component {
   constructor(props) {
@@ -12,9 +13,12 @@ class Card extends Component {
       <p key={index}>{title}</p>
     ));
     return (
-      <div className="Card" style={{border: '1px solid red', fontSize: 15}}>
-        <h3>{this.props.subreddit}</h3>
-        {titles}
+      <div className="Card" >
+        <div className="Card--content">
+          <h3>{this.props.subreddit}</h3>
+          {titles}
+        </div>
+        
       </div>
     );
   }
