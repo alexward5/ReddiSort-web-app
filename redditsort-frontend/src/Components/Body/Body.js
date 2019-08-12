@@ -11,7 +11,7 @@ class Body extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps.posts);
+    // console.log(nextProps.posts);
     return ({ posts: nextProps.posts });
   }
 

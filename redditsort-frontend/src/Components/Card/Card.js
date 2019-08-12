@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Card.css';
+import CardRow from '../CardRow/CardRow';
 
 class Card extends Component {
   constructor(props) {
@@ -10,12 +11,12 @@ class Card extends Component {
   }
   render() {
     const titles = this.props.titles.map((title, index) => (
-      <p key={index}>{title}</p>
+      <CardRow mainText={title} key={index} />
     ));
     return (
       <div className="Card" >
         <div className="Card--content">
-          <h3>{this.props.subreddit}</h3>
+          <h3 className="Card--subreddit">{this.props.subreddit}</h3>
           {titles}
         </div>
         
