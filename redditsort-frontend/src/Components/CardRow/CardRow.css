@@ -1,15 +1,8 @@
 .CardRow {
-  /* border: 1px solid blue; */
-  /* height: 50px; */
-  /* display: flex;
-  align-items: flex-end; */
-  /* border: 1px solid lightgrey; */
-
-  width: calc(100% - 2rem);
-  /* overflow:hidden; 
-  white-space:nowrap; 
-  text-overflow: ellipsis; */
-  padding: 1rem 0;
-  /* line-clamp: 3;
-  -webkit-line-clamp: 3; */
+  width: calc(100% - 3.5rem);
+  min-height: 30px;
+  padding: 1rem 2rem;
+  border-top: 1px solid #778197;
+  display: flex;
+  align-items: center;
 }

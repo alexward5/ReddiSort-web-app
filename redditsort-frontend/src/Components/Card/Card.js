@@ -17,7 +17,10 @@ class Card extends Component {
       <div className="Card" >
         <div className="Card--content">
           <h3 className="Card--subreddit">{this.props.subreddit}</h3>
-          {titles}
+          <input className="Card--search" type="text" placeholder={`Search ${this.props.subreddit}...`} />
+          <div className="Card--titles">
+            {titles}
+          </div>
         </div>
         
       </div>
