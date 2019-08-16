@@ -67,12 +67,18 @@ class Card extends Component {
             placeholder={`Search ${this.props.subreddit}...`} 
             onChange={this.searchCard}
           />
+          <h3 className="Posts--header">Posts</h3>
           <div className="Card--titles">
             {titles}
           </div>
           {currentShownPosts.length > 5 
             &&
-            <Pagination totalPosts={currentShownPosts.length} postsPerPage={this.state.postsPerPage} setPage={this.setPage} />
+            <Pagination 
+              totalPosts={currentShownPosts.length} 
+              postsPerPage={this.state.postsPerPage} 
+              setPage={this.setPage} 
+              selected={this.state.currentPage}
+            />
           }
           
         </div>
