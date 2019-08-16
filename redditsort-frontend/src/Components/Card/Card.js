@@ -18,7 +18,25 @@ class Card extends Component {
   }
 
   searchCard = (e) => {
-    console.log(e.target.value);
+    this.props.titles.forEach((title, index) => {
+      if (title.toLowerCase().includes(e.target.value)) {
+        this.setState(st => ({
+          shownPosts: [
+            ...st.shownPosts.slice(0, index),
+            st.shownPosts[index] = true,
+            ...st.shownPosts.slice(index + 1)
+          ]
+        }))
+      } else {
+        this.setState(st => ({
+          shownPosts: [
+            ...st.shownPosts.slice(0, index),
+            st.shownPosts[index] = false,
+            ...st.shownPosts.slice(index + 1)
+          ]
+        }))
+      }
+    });
   }
 
   getShownPosts = () => {
@@ -52,9 +70,9 @@ class Card extends Component {
           <div className="Card--titles">
             {titles}
           </div>
-          {this.props.titles.length > 5 
+          {currentShownPosts.length > 5 
             &&
-            <Pagination totalPosts={this.props.titles.length} postsPerPage={this.state.postsPerPage} setPage={this.setPage} />
+            <Pagination totalPosts={currentShownPosts.length} postsPerPage={this.state.postsPerPage} setPage={this.setPage} />
           }
           
         </div>
