@@ -1,8 +1,12 @@
 .CardRow {
   width: calc(100% - 3.5rem);
-  min-height: 30px;
+  min-height: 55px;
   padding: 1rem 2rem;
   border-top: 1px solid #778197;
   display: flex;
   align-items: center;
 }
+
+/* .hidden {
+  display:none;
+} */

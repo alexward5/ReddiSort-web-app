@@ -8,7 +8,8 @@ class Card extends Component {
     super(props);
     this.state = {
       currentPage: 1,
-      postsPerPage: 5
+      postsPerPage: 5,
+      shownPosts: new Array(this.props.titles.length).fill(true)
     }
   }
 
@@ -20,10 +21,21 @@ class Card extends Component {
     console.log(e.target.value);
   }
 
+  getShownPosts = () => {
+    const currentShownPosts = [];
+    this.state.shownPosts.forEach((shown, index) => {
+      if (shown === true) {
+        currentShownPosts.push(this.props.titles[index]);
+      }
+    });
+    return currentShownPosts;
+  }
+
   render() {
     const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
     const indexOfFirstPost = indexOfLastPost - this.state.postsPerPage;
-    const currentPosts = this.props.titles.slice(indexOfFirstPost, indexOfLastPost);
+    const currentShownPosts = this.getShownPosts();
+    const currentPosts = currentShownPosts.slice(indexOfFirstPost, indexOfLastPost);
     const titles = currentPosts.map((title, index) => (
       <CardRow mainText={title} key={index} />
     ));

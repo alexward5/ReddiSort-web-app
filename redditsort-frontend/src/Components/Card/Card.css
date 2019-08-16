@@ -1,11 +1,7 @@
 .Card {
   border-radius: 30px;
-  /* border: 3px solid black; */
   font-size: 15px;
   background: #3E4A64;
-  /* padding: 1rem; */
-  /* grid-column: auto / span 2; */
-  /* grid-row: auto / span 11; */
 }
 
 .Card--search {

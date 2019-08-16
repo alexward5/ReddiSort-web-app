@@ -10,7 +10,7 @@ class CardRow extends Component {
   }
   render() {
     return (
-      <div className="CardRow">
+      <div className='CardRow'>
         {this.props.mainText}
       </div>
     );
