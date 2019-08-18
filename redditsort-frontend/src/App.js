@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       savedPosts: '',
       savedComments: '',
-      menuOpen: true
+      menuOpen: true,
+      searchInput: ''
     }
   }
 
@@ -49,12 +50,22 @@ class App extends Component {
   toggleMenu = () => {
     this.setState(prevState => ({menuOpen: !prevState.menuOpen}));
   }
+  
+  setInput = (input) => {
+    this.setState({searchInput: input});
+    console.log(input);
+  }
 
   render() {
     return(
       <div className="App">
-        <Menu toggleMenu={this.toggleMenu} />
-        <Body posts={this.state.savedPosts} comments={this.state.savedComments} menuOpen={this.state.menuOpen} />
+        <Menu toggleMenu={this.toggleMenu} setInput={this.setInput} />
+        <Body 
+          posts={this.state.savedPosts} 
+          comments={this.state.savedComments} 
+          menuOpen={this.state.menuOpen}
+          globalSearchInput={this.state.searchInput}
+        />
       </div>
     )
   }

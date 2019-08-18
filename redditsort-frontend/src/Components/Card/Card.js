@@ -19,7 +19,7 @@ class Card extends Component {
 
   searchCard = (e) => {
     this.props.titles.forEach((title, index) => {
-      if (title.toLowerCase().includes(e.target.value)) {
+      if (title.toLowerCase().includes(e.target.value.toLowerCase())) {
         this.setState(st => ({
           shownPosts: [
             ...st.shownPosts.slice(0, index),

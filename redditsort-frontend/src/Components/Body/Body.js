@@ -64,7 +64,7 @@ class Body extends Component {
       });
       // create a card for each subreddit
       for (let i=0; i<subredditsArr.length; i++) {
-        cards.push(<Card subreddit={subredditsArr[i]} titles={savedPosts[i]} key={i} />)
+        cards.push(<Card subreddit={subredditsArr[i]} titles={savedPosts[i]} globalSearchInput={this.props.globalSearchInput} key={i} />)
       }
     }
     return (

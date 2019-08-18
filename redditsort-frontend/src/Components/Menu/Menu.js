@@ -5,14 +5,24 @@ class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      searchInput: ''
     }
   }
+
+  setInput = (e) => {
+    this.props.setInput(e.target.value);
+  }
+
   render() {
     return (
       <div className="Menu">
         <div className="header">
-          <input className="header--search" type="text" placeholder="Search All Saved Content..."/>
+          <input 
+            className="header--search" 
+            type="text" 
+            placeholder="Search All Saved Content..."
+            onChange={this.setInput}
+          />
         </div>
         <input onClick={this.props.toggleMenu} type="checkbox" className="openSidebarMenu" id="openSidebarMenu" defaultChecked />
         <label htmlFor="openSidebarMenu" className="sidebarIconToggle">

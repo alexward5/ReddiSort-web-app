@@ -10,7 +10,7 @@ class Pagination extends Component {
         <button 
           key={i} 
           onClick={() => this.props.setPage(i)}
-          className={this.props.selected === i && 'selected'}
+          className={this.props.selected === i ? 'selected' : ''}
         >
         {i}
         </button>
