@@ -9,7 +9,8 @@ class Card extends Component {
     this.state = {
       currentPage: 1,
       postsPerPage: 5,
-      shownPosts: new Array(this.props.titles.length).fill(true)
+      shownPosts: new Array(this.props.titles.length).fill(true),
+      searchInput: ''
     }
   }
 
@@ -18,8 +19,15 @@ class Card extends Component {
   }
 
   searchCard = (input) => {
+    if (input !== this.props.globalSearchInput) {
+      this.setState({searchInput: input});
+    }
+    // const combinedInput = `${this.props.globalSearchInput}${this.state.searchInput}`;
+    const combinedInput = input;
+    const parsedInput = input.split(' ');
+    console.log(parsedInput);
     this.props.titles.forEach((title, index) => {
-      if (title.toLowerCase().includes(input.toLowerCase())) {
+      if (title.toLowerCase().includes(combinedInput.toLowerCase())) {
         this.setState(st => ({
           shownPosts: [
             ...st.shownPosts.slice(0, index),
@@ -55,6 +63,10 @@ class Card extends Component {
     }
   }
 
+  hideCard = () => {
+    return this.state.shownPosts.every(post => {return post === false}) && this.state.searchInput === '';
+  }
+
   render() {
     const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
     const indexOfFirstPost = indexOfLastPost - this.state.postsPerPage;
@@ -64,7 +76,7 @@ class Card extends Component {
       <CardRow mainText={title} key={index} />
     ));
     return (
-      <div className="Card" >
+      <div className={`Card ${this.hideCard() ? 'hidden' : ''}`} >
         <div className="Card--content">
           <h3 className="Card--subreddit">{this.props.subreddit}</h3>
           <input 

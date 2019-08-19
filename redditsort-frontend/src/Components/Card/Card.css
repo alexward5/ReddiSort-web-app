@@ -39,3 +39,7 @@
   margin-bottom: 1rem;
   border-bottom: 1px solid #2BFFA3;
 }
+
+.hidden {
+  display: none;
+}
