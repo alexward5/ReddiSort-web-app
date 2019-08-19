@@ -15,12 +15,18 @@ class Body extends Component {
     return ({ posts: nextProps.posts });
   }
 
-  componentDidUpdate() {
-    this.resizeAllGridItems();
+  componentDidUpdate(prevState) {
     // set timeout so items are resized after the transition
-    setTimeout(() => {
-      this.resizeAllGridItems();
-    }, 250);
+    if (prevState.menuOpen !== this.props.menuOpen) {
+      setTimeout(() => {
+        console.log('TRUE');
+        this.resizeAllGridItems();
+      }, 250);
+    } else {
+      setTimeout(() => {
+        this.resizeAllGridItems();
+      }, 10);
+    }
   }
 
   resizeGridItem = (item) => {

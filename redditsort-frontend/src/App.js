@@ -53,7 +53,7 @@ class App extends Component {
   
   setInput = (input) => {
     this.setState({searchInput: input});
-    console.log(input);
+    // console.log(input);
   }
 
   render() {

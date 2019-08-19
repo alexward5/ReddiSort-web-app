@@ -17,9 +17,9 @@ class Card extends Component {
     this.setState({currentPage: newPage});
   }
 
-  searchCard = (e) => {
+  searchCard = (input) => {
     this.props.titles.forEach((title, index) => {
-      if (title.toLowerCase().includes(e.target.value.toLowerCase())) {
+      if (title.toLowerCase().includes(input.toLowerCase())) {
         this.setState(st => ({
           shownPosts: [
             ...st.shownPosts.slice(0, index),
@@ -49,6 +49,12 @@ class Card extends Component {
     return currentShownPosts;
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.globalSearchInput !== this.props.globalSearchInput) {
+      this.searchCard(this.props.globalSearchInput);
+    }
+  }
+
   render() {
     const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
     const indexOfFirstPost = indexOfLastPost - this.state.postsPerPage;
@@ -65,7 +71,7 @@ class Card extends Component {
             className="Card--search" 
             type="text" 
             placeholder={`Search ${this.props.subreddit}...`} 
-            onChange={this.searchCard}
+            onChange={(e) => {this.searchCard(e.target.value)}}
           />
           <h3 className="Posts--header">Posts</h3>
           <div className="Card--titles">
@@ -79,10 +85,8 @@ class Card extends Component {
               setPage={this.setPage} 
               selected={this.state.currentPage}
             />
-          }
-          
-        </div>
-        
+          }     
+        </div>   
       </div>
     );
   }
