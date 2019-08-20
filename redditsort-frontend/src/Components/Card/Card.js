@@ -18,16 +18,23 @@ class Card extends Component {
     this.setState({currentPage: newPage});
   }
 
-  searchCard = (input) => {
-    if (input !== this.props.globalSearchInput) {
-      this.setState({searchInput: input});
+  searchCard = async (input) => {
+    let combinedInput = '';
+    if (input !== this.props.globalSearchInput || this.props.globalSearchInput === '') {
+      // handle input from card search
+      await this.setState({searchInput: input});
+      combinedInput = `${this.state.searchInput} ${this.props.globalSearchInput}`;
+      console.log('INSIDE CONDITNAL ' + combinedInput);
+    } else {
+      // handle input from global search
+      combinedInput = this.props.globalSearchInput;
     }
     // const combinedInput = `${this.props.globalSearchInput}${this.state.searchInput}`;
-    const combinedInput = input;
-    const parsedInput = input.split(' ');
+    const parsedInput = combinedInput.split(' ');
     console.log(parsedInput);
     this.props.titles.forEach((title, index) => {
-      if (title.toLowerCase().includes(combinedInput.toLowerCase())) {
+      // title.toLowerCase().includes(combinedInput.toLowerCase())
+      if (parsedInput.every(word => title.toLowerCase().includes(word.toLowerCase()))) {
         this.setState(st => ({
           shownPosts: [
             ...st.shownPosts.slice(0, index),
@@ -57,10 +64,14 @@ class Card extends Component {
     return currentShownPosts;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.globalSearchInput !== this.props.globalSearchInput) {
-      this.searchCard(this.props.globalSearchInput);
-    }
+      if (prevState.searchInput === '') {
+        this.searchCard(this.props.globalSearchInput);
+      } else {
+        this.searchCard(this.props.globalSearchInput + ' ' + prevState.searchInput);
+      }
+    } 
   }
 
   hideCard = () => {
