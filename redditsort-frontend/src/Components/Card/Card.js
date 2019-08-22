@@ -14,6 +14,7 @@ class Card extends Component {
     }
   }
 
+  // set which page is shown in pagination
   setPage = (newPage) => {
     this.setState({currentPage: newPage});
   }
@@ -24,16 +25,12 @@ class Card extends Component {
       // handle input from card search
       await this.setState({searchInput: input});
       combinedInput = `${this.state.searchInput} ${this.props.globalSearchInput}`;
-      console.log('INSIDE CONDITNAL ' + combinedInput);
     } else {
       // handle input from global search
       combinedInput = this.props.globalSearchInput;
     }
-    // const combinedInput = `${this.props.globalSearchInput}${this.state.searchInput}`;
     const parsedInput = combinedInput.split(' ');
-    console.log(parsedInput);
     this.props.titles.forEach((title, index) => {
-      // title.toLowerCase().includes(combinedInput.toLowerCase())
       if (parsedInput.every(word => title.toLowerCase().includes(word.toLowerCase()))) {
         this.setState(st => ({
           shownPosts: [
@@ -69,9 +66,12 @@ class Card extends Component {
       if (prevState.searchInput === '') {
         this.searchCard(this.props.globalSearchInput);
       } else {
-        this.searchCard(this.props.globalSearchInput + ' ' + prevState.searchInput);
+        this.searchCard(`${this.props.globalSearchInput} ${prevState.searchInput}`);
       }
-    } 
+    }
+    if (prevState.searchInput !== this.state.searchInput) {
+      this.props.resizeGrid();
+    }
   }
 
   hideCard = () => {
@@ -87,7 +87,7 @@ class Card extends Component {
       <CardRow mainText={title} key={index} />
     ));
     return (
-      <div className={`Card ${this.hideCard() ? 'hidden' : ''}`} >
+      <div className={`Card ${this.hideCard() && 'hidden'} ${!this.props.display && 'hidden'}`} >
         <div className="Card--content">
           <h3 className="Card--subreddit">{this.props.subreddit}</h3>
           <input 

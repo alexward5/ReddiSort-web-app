@@ -11,7 +11,9 @@ class App extends Component {
       savedPosts: '',
       savedComments: '',
       menuOpen: true,
-      searchInput: ''
+      searchInput: '',
+      subreddits: '',
+      displaySubreddits: []
     }
   }
 
@@ -31,7 +33,7 @@ class App extends Component {
     const data = await response.json();
     localStorage.setItem('reddit-token', data.token);
     localStorage.setItem('reddit-token-date', new Date());
-    // console.log(data);
+    console.log(data);
     const commentsCleaned = data.comments.map(comment => ({subreddit: comment.subreddit, body: comment.body.replace(/\n/g, '')}));
     this.setState({savedPosts: data.posts, savedComments: commentsCleaned});
   }
@@ -42,7 +44,7 @@ class App extends Component {
     const data = await response.json();
     localStorage.setItem('reddit-token', data.token);
     localStorage.setItem('reddit-token-date', new Date());
-    // console.log(data);
+    console.log(data);
     const commentsCleaned = data.comments.map(comment => ({subreddit: comment.subreddit, body: comment.body.replace(/\n/g, '')}));
     this.setState({savedPosts: data.posts, savedComments: commentsCleaned});
   }
@@ -56,15 +58,56 @@ class App extends Component {
     // console.log(input);
   }
 
+  parseSubreddits = () => {
+    let subreddits = new Set();
+    this.state.savedPosts.forEach(post => subreddits.add(post.subreddit));
+    this.setState({subreddits: Array.from(subreddits)}, () => {
+      this.setState({displaySubreddits: Array(this.state.subreddits.length).fill(true)});
+    });  
+  }
+
+  toggleSubreddit = (index) => {
+    this.setState(st => ({
+      displaySubreddits: [
+        ...st.displaySubreddits.slice(0, index),
+        st.displaySubreddits[index] = !st.displaySubreddits[index],
+        ...st.displaySubreddits.slice(index + 1)
+      ]
+    }))
+  }
+
+  toggleAllOn = () => {
+    this.setState({displaySubreddits: Array(this.state.subreddits.length).fill(true)});
+  }
+  
+  toggleAllOff = () => {
+    this.setState({displaySubreddits: Array(this.state.subreddits.length).fill(false)});
+  }
+
+  componentDidUpdate() {
+    if (this.state.subreddits === '') {
+      this.parseSubreddits();
+    }
+  }
+
   render() {
+    // const subreddits = this.parseSubreddits(this.state.savedPosts);
     return(
       <div className="App">
-        <Menu toggleMenu={this.toggleMenu} setInput={this.setInput} />
+        <Menu 
+          toggleMenu={this.toggleMenu} 
+          setInput={this.setInput}
+          subreddits={this.state.subreddits}
+          toggleSubreddit={this.toggleSubreddit}
+          toggleAllOn={this.toggleAllOn}
+          toggleAllOff={this.toggleAllOff}
+        />
         <Body 
           posts={this.state.savedPosts} 
           comments={this.state.savedComments} 
           menuOpen={this.state.menuOpen}
           globalSearchInput={this.state.searchInput}
+          displaySubreddits={this.state.displaySubreddits}
         />
       </div>
     )

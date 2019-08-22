@@ -13,7 +13,41 @@ class Menu extends Component {
     this.props.setInput(e.target.value);
   }
 
+  toggleAll = (e) => {
+    const checkboxes = document.querySelectorAll('.subreddit-checkbox');
+    if (e.target.classList.contains('show-all-button')) {
+      this.props.toggleAllOn();
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
+      })
+    } else {
+      this.props.toggleAllOff();
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      })
+    }
+  }
+
   render() {
+    const subreddits = [];
+    if (this.props.subreddits) {
+      this.props.subreddits.forEach((sub, index) => {
+        subreddits.push(
+          <div className='subreddit' key={index}>
+            <input 
+              className='subreddit-checkbox' 
+              id={`checkbox-${index}`} 
+              type="checkbox"
+              onClick={() => this.props.toggleSubreddit(index)}
+              defaultChecked
+            />
+            <label htmlFor={`checkbox-${index}`}>
+              {sub}
+            </label>
+          </div>
+        )
+      })
+    }
     return (
       <div className="Menu">
         <div className="header">
@@ -37,6 +71,13 @@ class Menu extends Component {
               <span className="logo-2">Sort</span>
             </div>
             <a href="http://localhost:3000/auth/reddit"><button className="sync-button">Sync Your Account</button></a>
+            <div className="toggle-group">
+              <button onClick={this.toggleAll} className='toggle-button show-all-button'>Show All</button>
+              <button onClick={this.toggleAll} className='toggle-button'>Hide All</button>
+            </div>
+            <div className="sidebarMenu--subreddits">
+              {subreddits}
+            </div>
           </div>
         </div>
       </div>

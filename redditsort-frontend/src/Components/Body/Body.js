@@ -6,7 +6,7 @@ class Body extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      subreddits: ''
     }
   }
 
@@ -49,6 +49,10 @@ class Body extends Component {
     this.resizeGridItem(item);
   }
 
+  resizeGrid = () => {
+    this.forceUpdate();
+  }
+
   render() {
     // window.onload = this.resizeAllGridItems();
     window.addEventListener("resize", this.resizeAllGridItems);
@@ -70,7 +74,16 @@ class Body extends Component {
       });
       // create a card for each subreddit
       for (let i=0; i<subredditsArr.length; i++) {
-        cards.push(<Card subreddit={subredditsArr[i]} titles={savedPosts[i]} globalSearchInput={this.props.globalSearchInput} key={i} />)
+        cards.push(
+          <Card 
+            subreddit={subredditsArr[i]} 
+            titles={savedPosts[i]} 
+            globalSearchInput={this.props.globalSearchInput} 
+            resizeGrid={this.resizeGrid} 
+            key={i} 
+            display={this.props.displaySubreddits[i]}
+          />
+        )
       }
     }
     return (
