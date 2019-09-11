@@ -42,7 +42,7 @@ class Menu extends Component {
               defaultChecked
             />
             <label htmlFor={`checkbox-${index}`}>
-              {sub}
+              <span className="reddit-prefix">r/ </span>{sub.replace(/r\//g, '')}
             </label>
           </div>
         )

@@ -88,7 +88,6 @@ class Body extends Component {
     }
     return (
       <div className={`Body ${!this.props.menuOpen ? 'menuClosed' : ''}`}>
-        {/* {this.state.posts.map(post => (<Card subreddit={post.subreddot} title={post.title} />))} */}
         {cards}
       </div>
     );
