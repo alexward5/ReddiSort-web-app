@@ -70,14 +70,14 @@ class Body extends Component {
       // add each post to array index corresponding to appropriate subreddit
       this.state.posts.forEach(post => {
         let subIndex = subredditsArr.indexOf(post.subreddit);
-        savedPosts[subIndex].push(post.title);
+        savedPosts[subIndex].push({title: post.title, url: post.url});
       });
       // create a card for each subreddit
       for (let i=0; i<subredditsArr.length; i++) {
         cards.push(
           <Card 
             subreddit={subredditsArr[i]} 
-            titles={savedPosts[i]} 
+            posts={savedPosts[i]} 
             globalSearchInput={this.props.globalSearchInput} 
             resizeGrid={this.resizeGrid} 
             key={i} 

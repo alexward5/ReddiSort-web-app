@@ -7,6 +7,12 @@
   align-items: center;
 }
 
-/* .hidden {
-  display:none;
-} */
+.CardRow a:link, .CardRow a:visited {
+  text-decoration: none;
+  color: white;
+  transition: .25s ease all;
+}
+
+.CardRow a:hover {
+  color: #2BFFA3;
+}

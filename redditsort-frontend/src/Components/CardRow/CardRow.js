@@ -11,7 +11,7 @@ class CardRow extends Component {
   render() {
     return (
       <div className='CardRow'>
-        {this.props.mainText}
+        <a href={this.props.url} target="_blank" rel="noopener noreferrer">{this.props.mainText}</a>
       </div>
     );
   }

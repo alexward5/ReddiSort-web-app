@@ -9,7 +9,7 @@ class Card extends Component {
     this.state = {
       currentPage: 1,
       postsPerPage: 5,
-      shownPosts: new Array(this.props.titles.length).fill(true),
+      shownPosts: new Array(this.props.posts.length).fill(true),
       searchInput: ''
     }
   }
@@ -30,8 +30,8 @@ class Card extends Component {
       combinedInput = this.props.globalSearchInput;
     }
     const parsedInput = combinedInput.split(' ');
-    this.props.titles.forEach((title, index) => {
-      if (parsedInput.every(word => title.toLowerCase().includes(word.toLowerCase()))) {
+    this.props.posts.forEach((post, index) => {
+      if (parsedInput.every(word => post.title.toLowerCase().includes(word.toLowerCase()))) {
         this.setState(st => ({
           shownPosts: [
             ...st.shownPosts.slice(0, index),
@@ -55,7 +55,7 @@ class Card extends Component {
     const currentShownPosts = [];
     this.state.shownPosts.forEach((shown, index) => {
       if (shown === true) {
-        currentShownPosts.push(this.props.titles[index]);
+        currentShownPosts.push(this.props.posts[index]);
       }
     });
     return currentShownPosts;
@@ -83,8 +83,8 @@ class Card extends Component {
     const indexOfFirstPost = indexOfLastPost - this.state.postsPerPage;
     const currentShownPosts = this.getShownPosts();
     const currentPosts = currentShownPosts.slice(indexOfFirstPost, indexOfLastPost);
-    const titles = currentPosts.map((title, index) => (
-      <CardRow mainText={title} key={index} />
+    const titles = currentPosts.map((post, index) => (
+      <CardRow mainText={post.title} url={post.url} key={index} />
     ));
     return (
       <div className={`Card ${this.hideCard() && 'hidden'} ${!this.props.display && 'hidden'}`} >

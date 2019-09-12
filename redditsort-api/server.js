@@ -35,8 +35,9 @@ const getData = async (access_token) => {
 
   const saved = await r.getMe().getSavedContent({ limit: 800 });
   saved.forEach(post => {
+    console.log(post);
     if (post.title) {
-      const postData = { subreddit: post.subreddit_name_prefixed, title: post.title };
+      const postData = { subreddit: post.subreddit_name_prefixed, title: post.title, url: post.url };
       jsonData.posts.push(postData);
     } else {
       const commentData = { subreddit: post.subreddit_name_prefixed, body: post.body };
