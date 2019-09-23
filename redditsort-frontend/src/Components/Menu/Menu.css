@@ -30,6 +30,7 @@
   transition: transform 250ms ease-in-out;
   background-color: #3E4A64;
   border-right: 3px solid #2BFFA3;
+  z-index: 1;
 }
 .sidebarMenuInner{
   margin:0;
