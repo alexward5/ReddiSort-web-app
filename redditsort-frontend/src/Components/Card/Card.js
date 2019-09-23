@@ -20,6 +20,7 @@ class Card extends Component {
   }
 
   searchCard = async (input) => {
+    this.setState({currentPage: 1});
     let combinedInput = '';
     if (input !== this.props.globalSearchInput || this.props.globalSearchInput === '') {
       // handle input from card search
@@ -72,6 +73,10 @@ class Card extends Component {
     if (prevState.searchInput !== this.state.searchInput) {
       this.props.resizeGrid();
     }
+    // if (
+    //   prevState.currentPage !== this.state.currentPage && this.state.currentPage < Math.ceil(this.props.posts.length / this.state.postsPerPage)) {
+    //   this.props.resizeGrid();
+    // }
   }
 
   hideCard = () => {
@@ -102,12 +107,12 @@ class Card extends Component {
           </div>
           {currentShownPosts.length > 5 
             &&
-            <Pagination 
-              totalPosts={currentShownPosts.length} 
-              postsPerPage={this.state.postsPerPage} 
-              setPage={this.setPage} 
-              selected={this.state.currentPage}
-            />
+          <Pagination 
+            totalPosts={currentShownPosts.length} 
+            postsPerPage={this.state.postsPerPage} 
+            setPage={this.setPage} 
+            selected={this.state.currentPage}
+          />
           }     
         </div>   
       </div>

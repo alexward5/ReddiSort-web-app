@@ -2,6 +2,8 @@
   border-radius: 30px;
   font-size: 15px;
   background: #3E4A64;
+
+  position: relative;
 }
 
 .Card--search {
@@ -31,6 +33,7 @@
 
 .Card--titles {
   width: 100%;
+  padding-bottom: 2rem;
 }
 
 .Posts--header {

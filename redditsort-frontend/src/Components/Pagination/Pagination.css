@@ -1,3 +1,8 @@
+.Pagination {
+  position: absolute;
+  bottom: 1.5rem;
+}
+
 .Pagination button {
   margin: 0 .6rem;
   height: 3rem;

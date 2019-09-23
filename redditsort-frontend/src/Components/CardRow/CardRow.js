@@ -9,9 +9,10 @@ class CardRow extends Component {
     }
   }
   render() {
+    const substr = this.props.mainText.substring(0,135);
     return (
       <div className='CardRow'>
-        <a href={this.props.url} target="_blank" rel="noopener noreferrer">{this.props.mainText}</a>
+        <a href={this.props.url} target="_blank" rel="noopener noreferrer">{substr.length === 135 ? `${substr}...` : substr}</a>
       </div>
     );
   }
