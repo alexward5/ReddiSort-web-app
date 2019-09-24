@@ -8,6 +8,20 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// CORS setup
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === 'OPTIONS') {
+      res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+      return res.status(200).json({});
+  }
+  next();
+});
+
 let redditToken = '';
 
 const reddit = simpleOAuth2Reddit.create({
@@ -61,7 +75,7 @@ app.get('/auth/reddit/callback', reddit.accessToken, (req, res) => {
 
 // get data for client that does not already have token
 app.get('/auth/reddit/data', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
   if (redditToken !== '') {
     // console.log(redditToken.token.access_token);
     getData(redditToken.token.access_token).then(data => res.json(data));
@@ -72,7 +86,7 @@ app.get('/auth/reddit/data', (req, res) => {
 
 // if client already has token then get data
 app.get('/auth/reddit/data/:token', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
   getData(req.params.token).then(data => res.json(data));
 });
 
