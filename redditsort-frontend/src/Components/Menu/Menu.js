@@ -28,6 +28,10 @@ class Menu extends Component {
     }
   }
 
+  startDemo = () => {
+    this.props.refreshData('365187709709-UQIPlKVOLPJBaB-cQ9xXbdRvA4k');
+  }
+
   render() {
     const subreddits = [];
     if (this.props.subreddits) {
@@ -70,7 +74,8 @@ class Menu extends Component {
               <span className="logo-1">Reddi</span>
               <span className="logo-2">Sort</span>
             </div>
-            <a href="http://localhost:3000/auth/reddit"><button className="sync-button">Sync Your Account</button></a>
+            <a href="http://localhost:3000/auth/reddit"><button className="large-button sync-button">Sync Your Account</button></a>
+            <button onClick={this.startDemo} className="large-button demo-button">Use Demo Account</button>
             <div className="toggle-group">
               <button onClick={this.toggleAll} className='toggle-button show-all-button'>Show All</button>
               <button onClick={this.toggleAll} className='toggle-button'>Hide All</button>

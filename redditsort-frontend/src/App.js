@@ -101,6 +101,7 @@ class App extends Component {
           toggleSubreddit={this.toggleSubreddit}
           toggleAllOn={this.toggleAllOn}
           toggleAllOff={this.toggleAllOff}
+          refreshData={this.refreshData}
         />
         <Body 
           posts={this.state.savedPosts} 

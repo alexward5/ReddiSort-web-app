@@ -25,21 +25,22 @@
 }
 
 .Card--subreddit {
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   color: #2BFFA3;
+  letter-spacing: 1px;
 }
 
 .Card--titles {
   width: 100%;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
 }
 
 .Posts--header {
-  color: #2BFFA3;
-  font-weight: 400;
+  color: #778197;
+  font-weight: 700;
   margin-bottom: 1rem;
-  border-bottom: 1px solid #2BFFA3;
+  letter-spacing: 1px;
 }
 
 .hidden {

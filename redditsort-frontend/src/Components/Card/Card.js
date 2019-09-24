@@ -73,10 +73,10 @@ class Card extends Component {
     if (prevState.searchInput !== this.state.searchInput) {
       this.props.resizeGrid();
     }
-    // if (
-    //   prevState.currentPage !== this.state.currentPage && this.state.currentPage < Math.ceil(this.props.posts.length / this.state.postsPerPage)) {
-    //   this.props.resizeGrid();
-    // }
+    if (
+      prevState.currentPage !== this.state.currentPage && prevState.currentPage === Math.ceil(this.props.posts.length / this.state.postsPerPage)) {
+      this.props.resizeGrid();
+    }
   }
 
   hideCard = () => {
@@ -101,7 +101,7 @@ class Card extends Component {
             placeholder={`Search ${this.props.subreddit}...`} 
             onChange={(e) => {this.searchCard(e.target.value)}}
           />
-          <h3 className="Posts--header">Posts</h3>
+          <h3 className="Posts--header">Saved Posts</h3>
           <div className="Card--titles">
             {titles}
           </div>
