@@ -80,6 +80,12 @@
 .toggle-button:hover {
   background-color: #FC5050;
 }
+.toggle-button:active {
+  transform: scale(.95);
+}
+.hidden {
+  display:none;
+}
 .show-all-button {
   margin-bottom: 1rem;
 }
@@ -90,9 +96,8 @@
   color: #FC5050;
 }
 .logo {
-  font-family: 'Assistant', sans-serif;
-  font-weight: 700;
-  font-size: 3.3rem;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 3.4rem;
   letter-spacing: 1.5px;
   border-bottom: 3px solid #2BFFA3;
   width: 18rem;
@@ -104,6 +109,7 @@
 }
 .logo-2 {
   color: white;
+  font-family: 'PT Sans', sans-serif;
 }
 .large-button {
   /* margin: 2rem 0; */
@@ -114,24 +120,32 @@
   color: #3E4A64;
   border: none;
   border-radius: 1rem;
-  font-size: 2rem;
+  font-size: 1.95rem;
   cursor: pointer;
   transition: all .2s ease;
   -webkit-transform: translateZ(0);
   transform: scale(.95);
+  font-family: 'Noto Sans', sans-serif;
 }
 .large-button:hover {
   transform: scale(1);
   -moz-transform: scale(1);
   -webkit-transform: scale(1);
 }
+.large-button:active {
+  transform: scale(.97);
+  -moz-transform: scale(.97);
+  -webkit-transform: scale(.97);
+}
 
 .sync-button {
   margin: 2rem 0 1rem 0;
+  transition: all .2s ease;
 }
 
 .demo-button {
   margin-bottom: 2rem;
+  transition: all .2s ease;
 }
 
 .openSidebarMenu:checked ~ #sidebarMenu {
