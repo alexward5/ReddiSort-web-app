@@ -17,20 +17,50 @@ class App extends Component {
     }
   }
 
+  // componentDidMount = () => {
+  //   // get number of seconds since token was created
+  //   const tokenAge = (Date.parse(new Date()) - Date.parse(localStorage['reddit-token-date'])) / 1000; 
+  //   if (document.referrer === 'https://www.reddit.com/') {
+  //     console.log('REFERRED FROM REDDIT');
+  //     console.log(typeof localStorage['reddit-token']);
+  //     console.log(localStorage['reddit-token']);
+  //     if (localStorage['reddit-token'] === 'undefined') {
+  //       console.log('TOKEN IS UNDEFINED');
+  //       this.getData();
+  //       // if token is less than 59 mins old request data with token
+  //     } else if (localStorage.hasOwnProperty('reddit-token-date') && tokenAge < 3540) {
+  //       this.refreshData(localStorage['reddit-token']);
+  //     } else {
+  //       this.getData();
+  //     }
+  //     // if token is less than 59 mins old request data with token
+  //   } else if (localStorage.hasOwnProperty('reddit-token-date') && tokenAge < 3540) {
+  //     this.refreshData(localStorage['reddit-token']);
+  //   }
+  // }
+
   componentDidMount = () => {
-    // get number of seconds since token was created
-    const tokenAge = (Date.parse(new Date()) - Date.parse(localStorage['reddit-token-date'])) / 1000; 
-    if (document.referrer === 'https://www.reddit.com/') {
-      this.getData();
-      // if token is less than 59 mins old request data with token
-    } else if (localStorage.hasOwnProperty('reddit-token-date') && tokenAge < 3540) {
-      this.refreshData(localStorage['reddit-token']);
+    // debugger;
+    if (localStorage.hasOwnProperty('reddit-token-date')) {
+      const tokenAge = (Date.parse(new Date()) - Date.parse(localStorage['reddit-token-date'])) / 1000;
+      if (tokenAge < 3540 || localStorage['reddit-token'] !== 'undefined') {
+        this.refreshData(localStorage['reddit-token']);
+      } else {
+        this.getData();
+      }
+    } else {
+      if (document.referrer === 'https://www.reddit.com/') {
+        this.getData();
+      }
     }
   }
 
   getData = async () => {
+    // debugger;
     const response = await fetch('http://localhost:3000/auth/reddit/data');
     const data = await response.json();
+    console.log('GETTING DATA');
+    console.log(data);
     localStorage.setItem('reddit-token', data.token);
     localStorage.setItem('reddit-token-date', new Date());
     console.log(data);
@@ -40,6 +70,7 @@ class App extends Component {
 
   refreshData = async (token) => {
     const endpoint = `http://localhost:3000/auth/reddit/data/${token}`;
+    console.log('REFRESH ENDPOINT:' + endpoint);
     const response = await fetch(endpoint);
     const data = await response.json();
     localStorage.setItem('reddit-token', data.token);
@@ -49,12 +80,20 @@ class App extends Component {
     this.setState({savedPosts: data.posts, savedComments: commentsCleaned});
   }
 
-  demoApp = async () => {
-    const response = await fetch('http://localhost:3000/auth/reddit/demo');
-    const data = await response.json();
-    console.log(data);
-    const commentsCleaned = data.comments.map(comment => ({subreddit: comment.subreddit, body: comment.body.replace(/\n/g, '')}));
-    this.setState({savedPosts: data.posts, savedComments: commentsCleaned});
+  demoApp = () => {
+    this.setState({
+      savedPosts: '',
+      savedComments: '',
+      searchInput: '',
+      subreddits: '',
+      displaySubreddits: []
+    }, async () => {
+      const response = await fetch('http://localhost:3000/auth/reddit/demo');
+      const data = await response.json();
+      console.log(data);
+      const commentsCleaned = data.comments.map(comment => ({subreddit: comment.subreddit, body: comment.body.replace(/\n/g, '')}));
+      this.setState({savedPosts: data.posts, savedComments: commentsCleaned});
+    })
   }
 
   toggleMenu = () => {
@@ -66,12 +105,15 @@ class App extends Component {
     // console.log(input);
   }
 
+  // create a set if all unique subreddit names, and set their value in display array to true
   parseSubreddits = () => {
     let subreddits = new Set();
-    this.state.savedPosts.forEach(post => subreddits.add(post.subreddit));
-    this.setState({subreddits: Array.from(subreddits)}, () => {
-      this.setState({displaySubreddits: Array(this.state.subreddits.length).fill(true)});
-    });  
+    if (this.state.savedPosts) {
+      this.state.savedPosts.forEach(post => subreddits.add(post.subreddit));
+      this.setState({subreddits: Array.from(subreddits)}, () => {
+        this.setState({displaySubreddits: Array(this.state.subreddits.length).fill(true)});
+      });  
+    }
   }
 
   toggleSubreddit = (index) => {
@@ -92,9 +134,11 @@ class App extends Component {
     this.setState({displaySubreddits: Array(this.state.subreddits.length).fill(false)});
   }
 
-  componentDidUpdate() {
-    if (this.state.subreddits === '') {
-      this.parseSubreddits();
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.menuOpen === prevState.menuOpen) {
+      if (!this.state.subreddits) {
+        this.parseSubreddits();
+      }
     }
   }
 
