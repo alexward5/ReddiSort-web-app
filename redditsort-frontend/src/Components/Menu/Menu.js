@@ -29,7 +29,7 @@ class Menu extends Component {
   }
 
   startDemo = () => {
-    this.props.refreshData('365187709709-UQIPlKVOLPJBaB-cQ9xXbdRvA4k');
+    this.props.demoApp();
   }
 
   render() {

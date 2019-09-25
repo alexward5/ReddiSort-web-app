@@ -49,7 +49,7 @@ const getData = async (access_token) => {
 
   const saved = await r.getMe().getSavedContent({ limit: 800 });
   saved.forEach(post => {
-    console.log(post);
+    // console.log(post);
     if (post.title) {
       const postData = { subreddit: post.subreddit_name_prefixed, title: post.title, url: post.url };
       jsonData.posts.push(postData);
@@ -59,7 +59,36 @@ const getData = async (access_token) => {
     }
   })
 
-    return jsonData;
+  return jsonData;
+}
+
+const getDemo = async () => {
+  const jsonData = {
+    posts: [],
+    comments: []
+  }
+  
+  // for demo account authorize using refresh token
+  const r = new snoowrap({
+    userAgent: 'my user agent',
+    clientId: process.env.DEMO_CLIENT_ID,
+    clientSecret: process.env.DEMO_CLIENT_SECRET,
+    refreshToken: process.env.DEMO_REFRESH_TOKEN
+  });
+
+  const saved = await r.getMe().getSavedContent({ limit: 800 });
+  saved.forEach(post => {
+    // console.log(post);
+    if (post.title) {
+      const postData = { subreddit: post.subreddit_name_prefixed, title: post.title, url: post.url };
+      jsonData.posts.push(postData);
+    } else {
+      const commentData = { subreddit: post.subreddit_name_prefixed, body: post.body };
+      jsonData.comments.push(commentData);
+    }
+  })
+
+  return jsonData;
 }
 
 // ROUTES
@@ -78,7 +107,9 @@ app.get('/auth/reddit/data', (req, res) => {
   // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
   if (redditToken !== '') {
     // console.log(redditToken.token.access_token);
-    getData(redditToken.token.access_token).then(data => res.json(data));
+    getData(redditToken.token.access_token)
+    .then(data => res.json(data))
+    .then(() => redditToken = '');
   } else {
     res.status(404).send({ error: 'token not found' });
   }
@@ -87,7 +118,16 @@ app.get('/auth/reddit/data', (req, res) => {
 // if client already has token then get data
 app.get('/auth/reddit/data/:token', (req, res) => {
   // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
-  getData(req.params.token).then(data => res.json(data));
+  getData(req.params.token)
+  .then(data => res.json(data))
+  .catch(err => console.log(err));
+});
+
+// get data from demo account
+app.get('/auth/reddit/demo', (req, res) => {
+  getDemo()
+  .then(data => res.json(data))
+  .catch(err => console.log(err));
 });
 
 app.listen(3000, () => {

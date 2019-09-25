@@ -49,6 +49,14 @@ class App extends Component {
     this.setState({savedPosts: data.posts, savedComments: commentsCleaned});
   }
 
+  demoApp = async () => {
+    const response = await fetch('http://localhost:3000/auth/reddit/demo');
+    const data = await response.json();
+    console.log(data);
+    const commentsCleaned = data.comments.map(comment => ({subreddit: comment.subreddit, body: comment.body.replace(/\n/g, '')}));
+    this.setState({savedPosts: data.posts, savedComments: commentsCleaned});
+  }
+
   toggleMenu = () => {
     this.setState(prevState => ({menuOpen: !prevState.menuOpen}));
   }
@@ -101,7 +109,7 @@ class App extends Component {
           toggleSubreddit={this.toggleSubreddit}
           toggleAllOn={this.toggleAllOn}
           toggleAllOff={this.toggleAllOff}
-          refreshData={this.refreshData}
+          demoApp={this.demoApp}
         />
         <Body 
           posts={this.state.savedPosts} 
