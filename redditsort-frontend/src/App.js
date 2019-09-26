@@ -17,28 +17,6 @@ class App extends Component {
     }
   }
 
-  // componentDidMount = () => {
-  //   // get number of seconds since token was created
-  //   const tokenAge = (Date.parse(new Date()) - Date.parse(localStorage['reddit-token-date'])) / 1000; 
-  //   if (document.referrer === 'https://www.reddit.com/') {
-  //     console.log('REFERRED FROM REDDIT');
-  //     console.log(typeof localStorage['reddit-token']);
-  //     console.log(localStorage['reddit-token']);
-  //     if (localStorage['reddit-token'] === 'undefined') {
-  //       console.log('TOKEN IS UNDEFINED');
-  //       this.getData();
-  //       // if token is less than 59 mins old request data with token
-  //     } else if (localStorage.hasOwnProperty('reddit-token-date') && tokenAge < 3540) {
-  //       this.refreshData(localStorage['reddit-token']);
-  //     } else {
-  //       this.getData();
-  //     }
-  //     // if token is less than 59 mins old request data with token
-  //   } else if (localStorage.hasOwnProperty('reddit-token-date') && tokenAge < 3540) {
-  //     this.refreshData(localStorage['reddit-token']);
-  //   }
-  // }
-
   componentDidMount = () => {
     // debugger;
     if (localStorage.hasOwnProperty('reddit-token-date') && localStorage['reddit-token'] !== 'undefined') {
