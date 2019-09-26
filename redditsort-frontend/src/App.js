@@ -19,11 +19,9 @@ class App extends Component {
 
   componentDidMount = () => {
     // debugger;
-    if (localStorage.hasOwnProperty('reddit-token-date') && localStorage['reddit-token'] !== 'undefined') {
-      const tokenAge = (Date.parse(new Date()) - Date.parse(localStorage['reddit-token-date'])) / 1000;
-      if (tokenAge < 3540) {
+    const tokenAge = (Date.parse(new Date()) - Date.parse(localStorage['reddit-token-date'])) / 1000;
+    if (localStorage.hasOwnProperty('reddit-token-date') && localStorage['reddit-token'] !== 'undefined' && tokenAge < 3540) {
         this.refreshData(localStorage['reddit-token']);
-      } 
     } else {
       if (document.referrer === 'https://www.reddit.com/') {
         this.getData();
