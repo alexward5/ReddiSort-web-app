@@ -1,6 +1,6 @@
 # <center style="font-weight: bold"><span style="color:red">reddi</span>Sort Web App</center>
 
-![Philadelphia's Magic Gardens. This place was so cool!](./assets/screenshot.jpg "Screenshot for README")
+![reddiSort Screenshot](./assets/screenshot.jpg "Screenshot for README")
 
 ## Features
 - Organize your saved Reddit posts by subreddit
