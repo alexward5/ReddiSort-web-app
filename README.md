@@ -1,6 +1,6 @@
 # <center style="font-weight: bold"><span style="color:red">reddi</span>Sort Web App</center>
 
-![reddiSort Screenshot](./assets/screenshot.jpg "Screenshot for README")
+![](assets/screenshot.JPG)
 
 ## Features
 - Organize your saved Reddit posts by subreddit
